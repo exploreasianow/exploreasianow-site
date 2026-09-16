@@ -587,31 +587,62 @@
     @media (prefers-reduced-motion: reduce) {
       * { scroll-behavior: auto !important; transition: none !important; }
     }
-    /* CARROUSEL MOBILE */
+    /* CARROUSELS MOBILES : swipe, defilement automatique et indicateurs */
+    .carousel-dots {
+      display: none;
+    }
 
-@media (max-width: 768px) {
+    @media (max-width: 768px) {
+      .destination-grid,
+      .itinerary-grid {
+        display: flex;
+        overflow-x: auto;
+        gap: 16px;
+        padding: 0 7.5% 10px;
+        scroll-padding-inline: 7.5%;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-inline: contain;
+      }
 
-  .destinations-grid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    gap: 16px;
-    padding: 0 20px;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-  }
+      .destination-grid::-webkit-scrollbar,
+      .itinerary-grid::-webkit-scrollbar {
+        display: none;
+      }
 
-  .destinations-grid::-webkit-scrollbar {
-    display: none;
-  }
+      .destination-card,
+      .itinerary-card {
+        flex: 0 0 85%;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+      }
 
-  .destination-card {
-    flex: 0 0 85%;
-    scroll-snap-align: center;
-  }
+      .carousel-dots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-top: 16px;
+      }
 
-}
+      .carousel-dot {
+        width: 9px;
+        height: 9px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: #c7cec9;
+        transition: width 0.2s ease, background 0.2s ease;
+      }
+
+      .carousel-dot.active {
+        width: 24px;
+        border-radius: 999px;
+        background: var(--coral);
+      }
+    }
 
   </style>
 </head>
@@ -714,6 +745,7 @@
               <a class="btn btn-small" href="#"><span data-fr>Voir le guide</span><span data-en>View guide</span></a>
             </div>
           </article>
+        </div>
       </div>
     </section>
 
@@ -866,6 +898,109 @@
         ? 'Demo form: connect an email service before launch.'
         : 'Formulaire de démonstration : connectez un service d’e-mailing avant le lancement.';
     });
+
+
+    /* Carrousels mobiles */
+    const mobileCarouselMedia = window.matchMedia('(max-width: 768px)');
+    const reducedMotionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function createMobileCarousel(gridSelector, cardSelector, label) {
+      const grid = document.querySelector(gridSelector);
+      if (!grid) return;
+
+      const cards = Array.from(grid.querySelectorAll(cardSelector));
+      if (cards.length < 2) return;
+
+      const dots = document.createElement('div');
+      dots.className = 'carousel-dots';
+      dots.setAttribute('aria-label', label);
+
+      const dotButtons = cards.map((card, index) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = `carousel-dot${index === 0 ? ' active' : ''}`;
+        dot.setAttribute('aria-label', `Afficher la carte ${index + 1} sur ${cards.length}`);
+        dot.addEventListener('click', () => {
+          card.scrollIntoView({ behavior: reducedMotionMedia.matches ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+        });
+        dots.appendChild(dot);
+        return dot;
+      });
+
+      grid.insertAdjacentElement('afterend', dots);
+
+      let currentIndex = 0;
+      let autoScrollTimer = null;
+      let resumeTimer = null;
+      let scrollTimer = null;
+
+      function setActiveDot(index) {
+        currentIndex = index;
+        dotButtons.forEach((dot, dotIndex) => {
+          dot.classList.toggle('active', dotIndex === index);
+          dot.setAttribute('aria-current', dotIndex === index ? 'true' : 'false');
+        });
+      }
+
+      function findNearestCard() {
+        const gridCenter = grid.scrollLeft + grid.clientWidth / 2;
+        let nearestIndex = 0;
+        let nearestDistance = Infinity;
+
+        cards.forEach((card, index) => {
+          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+          const distance = Math.abs(cardCenter - gridCenter);
+          if (distance < nearestDistance) {
+            nearestDistance = distance;
+            nearestIndex = index;
+          }
+        });
+
+        setActiveDot(nearestIndex);
+      }
+
+      function stopAutoScroll() {
+        window.clearInterval(autoScrollTimer);
+        autoScrollTimer = null;
+      }
+
+      function startAutoScroll() {
+        stopAutoScroll();
+        if (!mobileCarouselMedia.matches || reducedMotionMedia.matches || document.hidden) return;
+
+        autoScrollTimer = window.setInterval(() => {
+          const nextIndex = (currentIndex + 1) % cards.length;
+          cards[nextIndex].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          setActiveDot(nextIndex);
+        }, 5000);
+      }
+
+      function pauseThenResume() {
+        stopAutoScroll();
+        window.clearTimeout(resumeTimer);
+        resumeTimer = window.setTimeout(startAutoScroll, 7000);
+      }
+
+      grid.addEventListener('scroll', () => {
+        window.clearTimeout(scrollTimer);
+        scrollTimer = window.setTimeout(findNearestCard, 100);
+      }, { passive: true });
+
+      grid.addEventListener('pointerdown', pauseThenResume, { passive: true });
+      grid.addEventListener('touchstart', pauseThenResume, { passive: true });
+      grid.addEventListener('focusin', stopAutoScroll);
+      grid.addEventListener('focusout', startAutoScroll);
+
+      mobileCarouselMedia.addEventListener('change', startAutoScroll);
+      reducedMotionMedia.addEventListener('change', startAutoScroll);
+      document.addEventListener('visibilitychange', startAutoScroll);
+
+      setActiveDot(0);
+      startAutoScroll();
+    }
+
+    createMobileCarousel('.destination-grid', '.destination-card', 'Navigation des destinations');
+    createMobileCarousel('.itinerary-grid', '.itinerary-card', 'Navigation des itineraires');
   </script>
 </body>
 </html>
