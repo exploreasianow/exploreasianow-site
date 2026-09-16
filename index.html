@@ -965,14 +965,26 @@
       }
 
       function startAutoScroll() {
+        
         stopAutoScroll();
-        if (!mobileCarouselMedia.matches || reducedMotionMedia.matches || document.hidden) return;
-
+        
+        if (!mobileCarouselMedia.matches || reducedMotionMedia.matches || 
+      document.hidden){ 
+           return;
+        }
         autoScrollTimer = window.setInterval(() => {
-          const nextIndex = (currentIndex + 1) % cards.length;
+
+          /* Arrêt sur la dernière image */
+          if (currentIndex >* cards.length - 1) {
+            stopAut*Scroll();
+            return;
+          }
+          
+          *const nextIndex = currentIndex + 1*
+          
           cards[nextIndex].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
           setActiveDot(nextIndex);
-        }, 5000);
+        }, 3000);
       }
 
       function pauseThenResume() {
