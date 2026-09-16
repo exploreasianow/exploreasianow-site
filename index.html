@@ -598,8 +598,8 @@
         display: flex;
         overflow-x: auto;
         gap: 16px;
-        padding: 0 7.5% 10px;
-        scroll-padding-inline: 7.5%;
+        padding: 0 0 10px;
+        scroll-padding-inline: 0;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
         scrollbar-width: none;
@@ -614,13 +614,19 @@
 
       .destination-card,
       .itinerary-card {
-        flex: 0 0 85%;
-        scroll-snap-align: center;
+        flex: 0 0 100%;
+        min-width: 100%;
+        max-width: 100%;
+        scroll-snap-align: start;
         scroll-snap-stop: always;
       }
 
       .carousel-dots {
-        display: flex;
+        display: flex !important;
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        min-height: 24px;
         justify-content: center;
         align-items: center;
         gap: 8px;
@@ -633,7 +639,10 @@
         padding: 0;
         border: 0;
         border-radius: 50%;
-        background: #c7cec9;
+        background: #aeb8b2;
+        appearance: none;
+        -webkit-appearance: none;
+        cursor: pointer;
         transition: width 0.2s ease, background 0.2s ease;
       }
 
@@ -915,13 +924,19 @@
       dots.className = 'carousel-dots';
       dots.setAttribute('aria-label', label);
 
+      function scrollToCard(index, behavior = 'smooth') {
+        const card = cards[index];
+        const left = card.offsetLeft - grid.offsetLeft;
+        grid.scrollTo({ left, behavior });
+      }
+
       const dotButtons = cards.map((card, index) => {
         const dot = document.createElement('button');
         dot.type = 'button';
         dot.className = `carousel-dot${index === 0 ? ' active' : ''}`;
         dot.setAttribute('aria-label', `Afficher la carte ${index + 1} sur ${cards.length}`);
         dot.addEventListener('click', () => {
-          card.scrollIntoView({ behavior: reducedMotionMedia.matches ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+          scrollToCard(index, reducedMotionMedia.matches ? 'auto' : 'smooth');
         });
         dots.appendChild(dot);
         return dot;
@@ -965,24 +980,15 @@
       }
 
       function startAutoScroll() {
-        
         stopAutoScroll();
-        
-        if (!mobileCarouselMedia.matches || reducedMotionMedia.matches || 
-      document.hidden){ 
-           return;
-        }
-        autoScrollTimer = window.setInterval(() => {
+        if (!mobileCarouselMedia.matches || reducedMotionMedia.matches || document.hidden) return;
 
-          /* Arrêt sur la dernière image */
-          if (currentIndex >* cards.length - 1) {
-            stopAut*Scroll();
-            return;
-          }
-          
-          *const nextIndex = currentIndex + 1*
-          
-          cards[nextIndex].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        autoScrollTimer = window.setInterval(() => {
+          const nextIndex = currentIndex >= cards.length - 1
+            ? 0
+            : currentIndex + 1;
+
+          scrollToCard(nextIndex, 'smooth');
           setActiveDot(nextIndex);
         }, 3000);
       }
