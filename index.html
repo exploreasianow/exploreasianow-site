@@ -3,439 +3,851 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Explore Asia Now : guides pratiques, idées d’itinéraires et conseils pour préparer un voyage authentique en Asie.">
-  <title>Explore Asia Now | Préparez votre voyage en Asie</title>
- 
+  <meta name="description" content="Explore Asia Now : guides, itinéraires et conseils pour préparer un voyage au Japon, en Thaïlande, en Corée du Sud, en Chine et en Inde.">
+  <meta name="theme-color" content="#123d35">
+  <title>Explore Asia Now | Guides et itinéraires en Asie</title>
+
   <style>
     :root {
-      --green: #174f46;
-      --green-light: #e8f2ef;
-      --coral: #e9785d;
-      --cream: #faf7f0;
-      --ink: #25302e;
-      --muted: #66716f;
+      --green: #123d35;
+      --green-light: #1e574b;
+      --coral: #e8795e;
+      --cream: #f8f3ea;
       --white: #ffffff;
-      --shadow: 0 12px 30px rgba(26, 55, 50, 0.12);
+      --ink: #24332f;
+      --muted: #687570;
+      --line: #ded8cf;
+      --shadow: 0 16px 45px rgba(18, 61, 53, 0.12);
+      --radius: 24px;
+      --container: 1240px;
     }
- 
+
     * { box-sizing: border-box; }
- 
     html { scroll-behavior: smooth; }
- 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
       color: var(--ink);
       background: var(--cream);
+      font-family: Arial, Helvetica, sans-serif;
       line-height: 1.6;
     }
- 
-    img {
-      display: block;
-      width: 100%;
-      object-fit: cover;
-    }
- 
+    body.menu-open { overflow: hidden; }
+    img { display: block; width: 100%; }
     a { color: inherit; }
- 
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+
     .container {
-      width: min(1120px, 90%);
+      width: min(var(--container), calc(100% - 40px));
       margin: 0 auto;
     }
- 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(250, 247, 240, 0.96);
-      border-bottom: 1px solid rgba(23, 79, 70, 0.12);
-      backdrop-filter: blur(10px);
-    }
- 
-    nav {
-      min-height: 74px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
- 
-    .brand {
-      font-size: 1.25rem;
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--coral);
+      font-size: 0.78rem;
       font-weight: 800;
-      text-decoration: none;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.08;
+    }
+    h2 {
+      margin-bottom: 16px;
       color: var(--green);
-      letter-spacing: -0.03em;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      letter-spacing: -0.035em;
     }
- 
-    .nav-links {
-      display: flex;
-      gap: 24px;
+
+    .section-heading {
+      max-width: 820px;
+      margin: 0 auto 42px;
+      text-align: center;
+    }
+    .section-heading p:last-child {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      min-height: 52px;
       align-items: center;
-    }
- 
-    .nav-links a {
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.95rem;
-    }
- 
-        .button {
-      display: inline-block;
-      padding: 12px 18px;
+      justify-content: center;
+      padding: 13px 22px;
+      border: 2px solid transparent;
       border-radius: 999px;
       background: var(--coral);
       color: var(--white);
+      font-weight: 800;
       text-decoration: none;
-      font-weight: 800;
-      border: 0;
-      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
- 
-    .hero {
-      padding: 70px 0 48px;
+    .btn:hover, .btn:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(232, 121, 94, 0.28);
     }
- 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
+    .btn-secondary {
+      border-color: rgba(255,255,255,0.8);
+      background: var(--green);
+    }
+    .btn-small {
+      min-height: 44px;
+      padding: 10px 16px;
+      font-size: 0.88rem;
+    }
+
+    /* Navigation */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(18,61,53,0.09);
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+    }
+    .navbar {
+      min-height: 78px;
+      display: flex;
       align-items: center;
-      gap: 52px;
+      justify-content: space-between;
+      gap: 24px;
     }
- 
-    .eyebrow {
-      color: var(--coral);
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-size: 0.78rem;
-    }
- 
-    h1, h2, h3 {
-      line-height: 1.12;
-      margin-top: 0;
-    }
- 
-    h1 {
-      font-size: clamp(2.7rem, 6vw, 5.4rem);
-      letter-spacing: -0.055em;
-      margin-bottom: 22px;
+    .brand {
       color: var(--green);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.38rem;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
     }
- 
-    .hero p {
-      max-width: 620px;
-      font-size: 1.08rem;
-      color: var(--muted);
-      margin-bottom: 28px;
+    .brand span { color: var(--coral); }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
     }
- 
+    .nav-menu a {
+      font-size: 0.94rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .nav-menu a:hover { color: var(--coral); }
+    .language-switch {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--white);
+      color: var(--green);
+      font-weight: 800;
+    }
+    .menu-toggle {
+      display: none;
+      width: 45px;
+      height: 45px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--green);
+      font-size: 1.25rem;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 680px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(7, 30, 26, 0.48), rgba(7, 30, 26, 0.62)),
+        url("images/hero-asia.jpg") center / cover no-repeat;
+      color: var(--white);
+      text-align: center;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1000px;
+      padding: 85px 20px 120px;
+    }
+    .hero h1 {
+      margin-bottom: 22px;
+      color: var(--white);
+      font-size: clamp(3rem, 7vw, 6rem);
+      letter-spacing: -0.05em;
+      text-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    }
+    .hero-lead {
+      max-width: 780px;
+      margin: 0 auto 30px;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+    }
     .hero-actions {
       display: flex;
-      align-items: center;
+      justify-content: center;
+      gap: 14px;
       flex-wrap: wrap;
-      gap: 16px;
     }
- 
-    .text-link {
-      font-weight: 800;
-      color: var(--green);
+    .hero-trust {
+      margin: 34px 0 0;
+      color: rgba(255,255,255,0.9);
+      font-size: 0.9rem;
+      font-weight: 700;
     }
- 
-     .hero-photo {
-      min-height: 570px;
-      border-radius: 34px 34px 140px 34px;
-      box-shadow: var(--shadow);
-      background:
-        linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.28)),
-        url('https://images.unsplash.com/photo-1528164344705-47542687000d?auto=format&fit=crop&w=1400&q=85') center/cover;
+
+    /* Stats */
+    .stats-wrap {
+      position: relative;
+      z-index: 4;
+      margin-top: -72px;
     }
- 
-    .section {
-      padding: 78px 0;
-    }
- 
-    .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 28px;
-      margin-bottom: 34px;
-    }
- 
-    .section-heading h2 {
-      color: var(--green);
-      font-size: clamp(2rem, 4vw, 3.25rem);
-      letter-spacing: -0.04em;
-      margin-bottom: 0;
-    }
- 
-    .section-heading p {
-      max-width: 470px;
-      color: var(--muted);
-      margin: 0;
-    }
- 
-    .cards {
+    .stats {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 22px;
-    }
- 
-    .card {
       overflow: hidden;
-      border-radius: 22px;
+      border-radius: var(--radius);
       background: var(--white);
       box-shadow: var(--shadow);
-      transition: transform 0.2s ease;
     }
- 
-    .card:hover { transform: translateY(-5px); }
- 
-    .card img { height: 260px; }
- 
-    .card-content { padding: 20px; }
- 
-    .card h3 {
-      color: var(--green);
-      font-size: 1.35rem;
-      margin-bottom: 8px;
+    .stat {
+      position: relative;
+      padding: 28px 18px;
+      text-align: center;
     }
- 
-    .card p {
-      color: var(--muted);
-      margin: 0 0 14px;
+    .stat:not(:last-child)::after {
+      position: absolute;
+      top: 25%;
+      right: 0;
+      width: 1px;
+      height: 50%;
+      background: var(--line);
+      content: "";
     }
- 
-    .card a {
+    .stat-number {
+      display: block;
       color: var(--coral);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1;
+    }
+    .stat-label {
+      display: block;
+      margin-top: 9px;
+      color: var(--green);
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    /* Destinations */
+    .destinations-section { padding: 110px 0 85px; }
+    .destination-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .destination-card {
+      position: relative;
+      min-height: 500px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      border-radius: var(--radius);
+      color: var(--white);
+      isolation: isolate;
+      box-shadow: 0 12px 28px rgba(18,61,53,0.12);
+    }
+    .destination-card img {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .destination-card::after {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(180deg, rgba(0,0,0,0.02) 35%, rgba(5,25,21,0.9) 100%);
+      content: "";
+    }
+    .destination-card:hover img { transform: scale(1.045); }
+    .destination-content { width: 100%; padding: 24px 20px; }
+    .destination-content h3 {
+      margin-bottom: 9px;
+      font-size: 1.5rem;
+    }
+    .destination-content p {
+      min-height: 45px;
+      margin: 0 0 16px;
+      color: rgba(255,255,255,0.88);
+      font-size: 0.85rem;
+    }
+
+    .reassurance {
+      margin-top: 34px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .reassurance-item {
+      padding: 18px 13px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--white);
+      color: var(--green);
+      font-size: 0.88rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    /* Itineraries */
+    .itineraries-section {
+      padding: 85px 0 95px;
+      background: var(--white);
+    }
+    .itinerary-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .itinerary-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--cream);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .itinerary-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+    .itinerary-image {
+      position: relative;
+      height: 190px;
+      overflow: hidden;
+    }
+    .itinerary-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .duration {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: var(--white);
+      color: var(--green);
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+    .itinerary-content { padding: 19px; }
+    .itinerary-content h3 {
+      margin-bottom: 9px;
+      color: var(--green);
+      font-size: 1.28rem;
+    }
+    .itinerary-route {
+      min-height: 48px;
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+    .itinerary-budget {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--coral);
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+    .text-link {
+      color: var(--green);
+      font-size: 0.86rem;
       font-weight: 800;
       text-decoration: none;
     }
- 
-    .planning {
+    .text-link:hover { color: var(--coral); }
+
+    /* Why */
+    .why-section {
+      padding: 90px 0;
       background: var(--green);
       color: var(--white);
     }
- 
-     .planning-grid {
+    .why-section h2 { color: var(--white); }
+    .why-section .section-heading p:last-child { color: rgba(255,255,255,0.76); }
+    .why-grid {
       display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
-      gap: 54px;
-      align-items: center;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
     }
- 
-    .planning h2 {
-      font-size: clamp(2rem, 4vw, 3.3rem);
-      letter-spacing: -0.04em;
-    }
- 
-    .steps {
-      display: grid;
-      gap: 14px;
-    }
- 
-    .step {
-      display: grid;
-      grid-template-columns: 42px 1fr;
-      gap: 15px;
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.1);
-    }
- 
-    .step-number {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: var(--coral);
-      font-weight: 800;
-    }
- 
-    .step h3 { margin: 2px 0 4px; }
-    .step p { margin: 0; color: rgba(255,255,255,0.77); }
- 
-    .newsletter {
-      text-align: center;
-      padding: 72px 0;
-    }
- 
-    .newsletter-box {
-      max-width: 820px;
-      margin: 0 auto;
-      padding: 46px;
-      border-radius: 28px;
+    .why-card {
+      padding: 28px;
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 22px;
       background: var(--green-light);
     }
- 
-    .newsletter h2 {
-      color: var(--green);
-      font-size: clamp(2rem, 4vw, 3rem);
+    .why-number {
+      display: inline-grid;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      margin-bottom: 18px;
+      border-radius: 50%;
+      background: var(--coral);
+      font-weight: 900;
     }
- 
-    form {
-      display: flex;
-      gap: 10px;
-      max-width: 600px;
-      margin: 24px auto 0;
+    .why-card h3 { margin-bottom: 10px; }
+    .why-card p { margin: 0; color: rgba(255,255,255,0.76); }
+
+    /* Checklist */
+    .checklist-section { padding: 95px 0; }
+    .checklist-box {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 55px;
+      align-items: center;
+      padding: 55px;
+      border-radius: 30px;
+      background: var(--white);
+      box-shadow: var(--shadow);
     }
- 
-    input[type="email"] {
-      flex: 1;
-      min-width: 0;
-      padding: 15px 18px;
-      border: 1px solid rgba(23, 79, 70, 0.22);
-      border-radius: 999px;
-      font: inherit;
+    .checklist-visual {
+      padding: 32px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--cream);
     }
- 
-    footer {
-      padding: 34px 0;
-      border-top: 1px solid rgba(23, 79, 70, 0.15);
-      color: var(--muted);
+    .checklist-title {
+      margin-bottom: 24px;
+      padding: 15px;
+      border-radius: 12px;
+      background: var(--green);
+      color: var(--white);
+      font-weight: 900;
       text-align: center;
     }
- 
-    @media (max-width: 900px) {
-      .hero-grid, .planning-grid { grid-template-columns: 1fr; }
-      .hero-photo { min-height: 440px; }
-      .cards { grid-template-columns: repeat(2, 1fr); }
-      .nav-links a:not(.button) { display: none; }
+    .checklist-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
- 
-    @media (max-width: 580px) {
-      .cards { grid-template-columns: 1fr; }
-      .section-heading { display: block; }
-      .section-heading p { margin-top: 14px; }
-      form { flex-direction: column; }
-      .hero { padding-top: 44px; }
-      .hero-photo { min-height: 360px; border-radius: 28px 28px 90px 28px; }
+    .checklist-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .checklist-list li::before {
+      display: grid;
+      flex: 0 0 22px;
+      width: 22px;
+      height: 22px;
+      place-items: center;
+      border: 2px solid var(--coral);
+      border-radius: 5px;
+      color: var(--coral);
+      content: "✓";
+      font-size: 0.75rem;
+      font-weight: 900;
+    }
+    .checklist-copy h2 { font-size: clamp(2rem, 4vw, 3rem); }
+    .checklist-copy p { color: var(--muted); }
+    .signup-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 25px;
+    }
+    .signup-form input {
+      min-width: 0;
+      flex: 1;
+      padding: 14px 17px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--cream);
+      color: var(--ink);
+    }
+    .form-note {
+      margin: 11px 0 0;
+      font-size: 0.75rem;
+    }
+    .form-message {
+      min-height: 24px;
+      margin-top: 8px;
+      color: var(--green);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    /* Footer */
+    .site-footer {
+      padding: 65px 0 24px;
+      background: #0d2d28;
+      color: rgba(255,255,255,0.75);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3, 1fr);
+      gap: 42px;
+      margin-bottom: 40px;
+    }
+    .footer-brand .brand { color: var(--white); }
+    .footer-brand p { max-width: 350px; }
+    .footer-column h3 {
+      margin-bottom: 16px;
+      color: var(--coral);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .footer-column a {
+      display: block;
+      margin: 8px 0;
+      font-size: 0.88rem;
+      text-decoration: none;
+    }
+    .footer-column a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      font-size: 0.8rem;
+    }
+
+    /* Language */
+    [data-en] { display: none; }
+    body.lang-en [data-fr] { display: none; }
+    body.lang-en [data-en] { display: inline; }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .destination-grid, .itinerary-grid { grid-template-columns: repeat(3, 1fr); }
+      .destination-card { min-height: 430px; }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 820px) {
+      .menu-toggle { display: inline-flex; }
+      .nav-menu {
+        position: fixed;
+        inset: 78px 0 auto;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 20px;
+        background: var(--white);
+        box-shadow: var(--shadow);
+      }
+      .nav-menu.open { display: flex; }
+      .nav-menu a, .language-switch { width: 100%; padding: 15px; border-radius: 12px; }
+      .hero { min-height: 620px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2)::after { display: none; }
+      .reassurance { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: 1fr; }
+      .checklist-box { grid-template-columns: 1fr; padding: 35px; }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 28px, var(--container)); }
+      .hero-content { padding-top: 70px; }
+      .hero h1 { font-size: clamp(2.55rem, 13vw, 4rem); }
+      .hero-actions, .signup-form { flex-direction: column; }
+      .hero-actions .btn, .signup-form .btn { width: 100%; }
+      .stats-wrap { margin-top: -48px; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      .stat { padding: 24px 10px; }
+      .destination-grid, .itinerary-grid { grid-template-columns: 1fr; }
+      .destination-card { min-height: 480px; }
+      .reassurance, .footer-grid { grid-template-columns: 1fr; }
+      .checklist-box { padding: 22px; }
+      .footer-bottom { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { scroll-behavior: auto !important; transition: none !important; }
     }
   </style>
 </head>
- 
+
 <body>
-  <header>
-    <nav class="container" aria-label="Navigation principale">
-      <a class="brand" href="#accueil">Explore Asia Now</a>
-      <div class="nav-links">
-        <a href="#destinations">Destinations</a>
-        <a href="#planifier">Planifier</a>
-        <a class="button" href="#newsletter">Recevoir les conseils</a>
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Navigation principale">
+      <a href="#accueil" class="brand">Explore Asia <span>Now</span></a>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+
+      <div class="nav-menu" id="navMenu">
+        <a href="#destinations"><span data-fr>Destinations</span><span data-en>Destinations</span></a>
+        <a href="#itineraires"><span data-fr>Itinéraires</span><span data-en>Itineraries</span></a>
+        <a href="#outils"><span data-fr>Pourquoi nous</span><span data-en>Why us</span></a>
+        <a href="#newsletter"><span data-fr>Checklist</span><span data-en>Checklist</span></a>
+        <button class="language-switch" id="languageSwitch" type="button" aria-label="Changer la langue">🌐 <span id="languageLabel">FR</span> ▾</button>
       </div>
     </nav>
   </header>
- 
+
   <main>
     <section class="hero" id="accueil">
-      <div class="container hero-grid">
-        <div>
-          <p class="eyebrow">Voyager autrement en Asie</p>
-          <h1>Des voyages plus vrais, plus simples à préparer.</h1>
-          <p>
-            Des idées d’itinéraires, des conseils pratiques et des adresses inspirantes
-            pour découvrir l’Asie à votre rythme, loin des circuits impersonnels.
-          </p>
-          <div class="hero-actions">
-            <a class="button" href="#destinations">Explorer les destinations</a>
-            <a class="text-link" href="#planifier">Comment ça marche ?</a>
-          </div>
+      <div class="hero-content">
+        <h1><span data-fr>Votre prochaine aventure en Asie commence ici</span><span data-en>Your next adventure in Asia starts here</span></h1>
+        <p class="hero-lead">
+          <span data-fr>Guides pratiques, itinéraires détaillés et conseils pour préparer un voyage qui vous ressemble.</span>
+          <span data-en>Practical guides, detailed itineraries and advice to plan a journey that feels like you.</span>
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#destinations"><span data-fr>Explorer les destinations</span><span data-en>Explore destinations</span></a>
+          <a class="btn btn-secondary" href="#itineraires"><span data-fr>Trouver mon itinéraire</span><span data-en>Find my itinerary</span></a>
         </div>
-        <div class="hero-photo" role="img" aria-label="Paysage japonais photographié en lumière naturelle"></div>
+        <p class="hero-trust">
+          <span data-fr>Guides bilingues FR/EN • Informations actualisées • Conseils indépendants</span>
+          <span data-en>Bilingual FR/EN guides • Updated information • Independent advice</span>
+        </p>
       </div>
     </section>
- 
-    <section class="section" id="destinations">
+
+    <div class="stats-wrap container" aria-label="Chiffres clés">
+      <div class="stats">
+        <div class="stat"><span class="stat-number">50+</span><span class="stat-label"><span data-fr>Itinéraires détaillés</span><span data-en>Detailed itineraries</span></span></div>
+        <div class="stat"><span class="stat-number">5</span><span class="stat-label"><span data-fr>Destinations phares</span><span data-en>Featured destinations</span></span></div>
+        <div class="stat"><span class="stat-number">+25K</span><span class="stat-label"><span data-fr>Voyageurs inspirés</span><span data-en>Travellers inspired</span></span></div>
+        <div class="stat"><span class="stat-number">100 %</span><span class="stat-label"><span data-fr>Conseils indépendants</span><span data-en>Independent advice</span></span></div>
+      </div>
+    </div>
+
+    <section class="destinations-section" id="destinations">
       <div class="container">
         <div class="section-heading">
-          <h2>Par où commencer ?</h2>
-          <p>Quatre destinations fortes pour lancer Explore Asia Now avec une sélection claire et des contenus réellement utiles.</p>
+          <p class="eyebrow"><span data-fr>Nos destinations</span><span data-en>Our destinations</span></p>
+          <h2><span data-fr>Cinq pays, cinq expériences uniques</span><span data-en>Five countries, five unique experiences</span></h2>
+          <p><span data-fr>Chaque destination bénéficie du même espace, du même format et du même niveau de priorité.</span><span data-en>Every destination receives the same space, format and level of priority.</span></p>
         </div>
- 
-        <div class="cards">
-          <article class="card">
-            <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=900&q=80" alt="Rue traditionnelle au Japon">
-            <div class="card-content">
-              <h3>Japon</h3>
-              <p>Villes vibrantes, traditions, trains et itinéraires faciles à combiner.</p>
-              <a href="#">Découvrir le Japon →</a>
+
+        <div class="destination-grid">
+          <article class="destination-card">
+            <img src="images/japon.jpg" alt="Paysage du Japon" loading="lazy">
+            <div class="destination-content">
+              <h3><span data-fr>Japon</span><span data-en>Japan</span></h3>
+              <p><span data-fr>Tokyo • Kyoto • Osaka<br>Culture • Gastronomie • Trains</span><span data-en>Tokyo • Kyoto • Osaka<br>Culture • Food • Rail</span></p>
+              <a class="btn btn-small" href="#"><span data-fr>Voir le guide</span><span data-en>View guide</span></a>
             </div>
           </article>
- 
-           <article class="card">
-            <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=900&q=80" alt="Temple en Thaïlande">
-            <div class="card-content">
-              <h3>Thaïlande</h3>
-              <p>Street food, îles, temples et premiers voyages accessibles.</p>
-              <a href="#">Découvrir la Thaïlande →</a>
+
+          <article class="destination-card">
+            <img src="images/thailande.jpg" alt="Paysage de Thaïlande" loading="lazy">
+            <div class="destination-content">
+              <h3><span data-fr>Thaïlande</span><span data-en>Thailand</span></h3>
+              <p><span data-fr>Bangkok • Chiang Mai • Îles<br>Temples • Cuisine • Plages</span><span data-en>Bangkok • Chiang Mai • Islands<br>Temples • Food • Beaches</span></p>
+              <a class="btn btn-small" href="#"><span data-fr>Voir le guide</span><span data-en>View guide</span></a>
             </div>
           </article>
- 
-          <article class="card">
-            <img src="https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&fit=crop&w=900&q=80" alt="Ville en Corée du Sud">
-            <div class="card-content">
-              <h3>Corée du Sud</h3>
-              <p>Quartiers créatifs, gastronomie et contrastes entre modernité et patrimoine.</p>
-              <a href="#">Découvrir la Corée →</a>
+
+          <article class="destination-card">
+            <img src="images/coree.jpg" alt="Paysage de Corée du Sud" loading="lazy">
+            <div class="destination-content">
+              <h3><span data-fr>Corée du Sud</span><span data-en>South Korea</span></h3>
+              <p><span data-fr>Séoul • Busan • Gyeongju<br>Palais • Quartiers • Saveurs</span><span data-en>Seoul • Busan • Gyeongju<br>Palaces • Districts • Flavours</span></p>
+              <a class="btn btn-small" href="#"><span data-fr>Voir le guide</span><span data-en>View guide</span></a>
             </div>
           </article>
- 
-          <article class="card">
-            <img src="https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=900&q=80" alt="Paysage naturel au Vietnam">
-            <div class="card-content">
-              <h3>Vietnam</h3>
-              <p>Du nord au sud, des paysages variés et une culture culinaire généreuse.</p>
-              <a href="#">Découvrir le Vietnam →</a>
+
+          <article class="destination-card">
+            <img src="images/chine.jpg" alt="Paysage de Chine" loading="lazy">
+            <div class="destination-content">
+              <h3><span data-fr>Chine</span><span data-en>China</span></h3>
+              <p><span data-fr>Pékin • Shanghai • Xi’an<br>Histoire • Architecture • Paysages</span><span data-en>Beijing • Shanghai • Xi’an<br>History • Architecture • Scenery</span></p>
+              <a class="btn btn-small" href="#"><span data-fr>Voir le guide</span><span data-en>View guide</span></a>
+            </div>
+          </article>
+
+          <article class="destination-card">
+            <img src="images/inde.jpg" alt="Paysage d’Inde" loading="lazy">
+            <div class="destination-content">
+              <h3><span data-fr>Inde</span><span data-en>India</span></h3>
+              <p><span data-fr>Delhi • Rajasthan • Agra<br>Patrimoine • Couleurs • Cuisine</span><span data-en>Delhi • Rajasthan • Agra<br>Heritage • Colour • Food</span></p>
+              <a class="btn btn-small" href="#"><span data-fr>Voir le guide</span><span data-en>View guide</span></a>
             </div>
           </article>
         </div>
-      </div>
-    </section>
- 
-    <section class="section planning" id="planifier">
-      <div class="container planning-grid">
-        <div>
-          <p class="eyebrow">Votre voyage, étape par étape</p>
-          <h2>Moins de recherche. Plus de temps pour partir.</h2>
-          <p>Explore Asia Now rassemble les informations essentielles dans un parcours simple, sans surcharge.</p>
-        </div>
- 
-        <div class="steps">
-          <div class="step">
-            <div class="step-number">1</div>
-            <div><h3>Choisissez une destination</h3><p>Comparez les ambiances, budgets et meilleures périodes.</p></div>
-          </div>
-          <div class="step">
-            <div class="step-number">2</div>
-            <div><h3>Adaptez un itinéraire</h3><p>Partez d’une base réaliste puis ajustez les étapes à votre rythme.</p></div>
-          </div>
-          <div class="step">
-            <div class="step-number">3</div>
-            <div><h3>Préparez l’essentiel</h3><p>Transport, hébergement, formalités et bonnes pratiques sur place.</p></div>
-          </div>
+
+        <div class="reassurance" aria-label="Nos engagements">
+          <div class="reassurance-item">✓ <span data-fr>Guides structurés</span><span data-en>Structured guides</span></div>
+          <div class="reassurance-item">✓ <span data-fr>Informations actualisées</span><span data-en>Updated information</span></div>
+          <div class="reassurance-item">✓ <span data-fr>Accès gratuit</span><span data-en>Free access</span></div>
+          <div class="reassurance-item">✓ <span data-fr>Français et anglais</span><span data-en>French and English</span></div>
         </div>
       </div>
     </section>
- 
-    <section class="newsletter" id="newsletter">
+
+    <section class="itineraries-section" id="itineraires">
       <div class="container">
-        <div class="newsletter-box">
-          <p class="eyebrow">La lettre Explore Asia Now</p>
-          <h2>Une idée de voyage utile, pas une boîte mail saturée.</h2>
-          <p>Recevez de futurs itinéraires, conseils et nouveautés. Le formulaire est visuel pour le moment et devra ensuite être relié à un service d’envoi.</p>
-          <form onsubmit="event.preventDefault(); alert('Merci ! Le formulaire devra ensuite être connecté à un service d’e-mailing.');">
-            <input type="email" aria-label="Adresse e-mail" placeholder="Votre adresse e-mail" required>
-            <button class="button" type="submit">Je m’inscris</button>
-          </form>
+        <div class="section-heading">
+          <p class="eyebrow"><span data-fr>Itinéraires populaires</span><span data-en>Popular itineraries</span></p>
+          <h2><span data-fr>Choisissez selon la durée de votre voyage</span><span data-en>Choose by the length of your trip</span></h2>
+          <p><span data-fr>Des parcours concrets pour passer rapidement de l’inspiration à la préparation.</span><span data-en>Practical routes to move quickly from inspiration to planning.</span></p>
+        </div>
+
+        <div class="itinerary-grid">
+          <article class="itinerary-card">
+            <div class="itinerary-image"><img src="images/itineraire-japon.jpg" alt="Itinéraire au Japon" loading="lazy"><span class="duration"><span data-fr>14 jours</span><span data-en>14 days</span></span></div>
+            <div class="itinerary-content"><h3><span data-fr>Japon</span><span data-en>Japan</span></h3><p class="itinerary-route">Tokyo → Kyoto → Osaka</p><span class="itinerary-budget"><span data-fr>Dès 1 900 €</span><span data-en>From €1,900</span></span><a class="text-link" href="#"><span data-fr>Voir l’itinéraire →</span><span data-en>View itinerary →</span></a></div>
+          </article>
+
+          <article class="itinerary-card">
+            <div class="itinerary-image"><img src="images/itineraire-thailande.jpg" alt="Itinéraire en Thaïlande" loading="lazy"><span class="duration"><span data-fr>10 jours</span><span data-en>10 days</span></span></div>
+            <div class="itinerary-content"><h3><span data-fr>Thaïlande</span><span data-en>Thailand</span></h3><p class="itinerary-route">Bangkok → Pattaya → Krabi</p><span class="itinerary-budget"><span data-fr>Dès 1 250 €</span><span data-en>From €1,250</span></span><a class="text-link" href="#"><span data-fr>Voir l’itinéraire →</span><span data-en>View itinerary →</span></a></div>
+          </article>
+
+          <article class="itinerary-card">
+            <div class="itinerary-image"><img src="images/itineraire-coree.jpg" alt="Itinéraire en Corée du Sud" loading="lazy"><span class="duration"><span data-fr>7 jours</span><span data-en>7 days</span></span></div>
+            <div class="itinerary-content"><h3><span data-fr>Corée du Sud</span><span data-en>South Korea</span></h3><p class="itinerary-route">Séoul → Gyeongju → Busan</p><span class="itinerary-budget"><span data-fr>Dès 1 400 €</span><span data-en>From €1,400</span></span><a class="text-link" href="#"><span data-fr>Voir l’itinéraire →</span><span data-en>View itinerary →</span></a></div>
+          </article>
+
+          <article class="itinerary-card">
+            <div class="itinerary-image"><img src="images/itineraire-chine.jpg" alt="Itinéraire en Chine" loading="lazy"><span class="duration"><span data-fr>12 jours</span><span data-en>12 days</span></span></div>
+            <div class="itinerary-content"><h3><span data-fr>Chine</span><span data-en>China</span></h3><p class="itinerary-route">Pékin → Xi’an → Shanghai</p><span class="itinerary-budget"><span data-fr>Dès 1 650 €</span><span data-en>From €1,650</span></span><a class="text-link" href="#"><span data-fr>Voir l’itinéraire →</span><span data-en>View itinerary →</span></a></div>
+          </article>
+
+          <article class="itinerary-card">
+            <div class="itinerary-image"><img src="images/itineraire-inde.jpg" alt="Itinéraire en Inde" loading="lazy"><span class="duration"><span data-fr>14 jours</span><span data-en>14 days</span></span></div>
+            <div class="itinerary-content"><h3><span data-fr>Inde</span><span data-en>India</span></h3><p class="itinerary-route">Delhi → Jaipur → Agra</p><span class="itinerary-budget"><span data-fr>Dès 1 300 €</span><span data-en>From €1,300</span></span><a class="text-link" href="#"><span data-fr>Voir l’itinéraire →</span><span data-en>View itinerary →</span></a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="why-section" id="outils">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow"><span data-fr>Notre approche</span><span data-en>Our approach</span></p>
+          <h2><span data-fr>Pourquoi Explore Asia Now ?</span><span data-en>Why Explore Asia Now?</span></h2>
+          <p><span data-fr>Une expérience pensée pour vous aider à décider et à passer à l’action.</span><span data-en>An experience designed to help you decide and take action.</span></p>
+        </div>
+        <div class="why-grid">
+          <article class="why-card"><span class="why-number">01</span><h3><span data-fr>Itinéraires utiles</span><span data-en>Useful itineraries</span></h3><p><span data-fr>Des parcours organisés selon la durée et le rythme du voyage.</span><span data-en>Routes organised by trip length and pace.</span></p></article>
+          <article class="why-card"><span class="why-number">02</span><h3><span data-fr>Budgets réalistes</span><span data-en>Realistic budgets</span></h3><p><span data-fr>Des repères simples pour préparer chaque dépense importante.</span><span data-en>Simple benchmarks to prepare for every major expense.</span></p></article>
+          <article class="why-card"><span class="why-number">03</span><h3><span data-fr>Conseils indépendants</span><span data-en>Independent advice</span></h3><p><span data-fr>Des informations directes, structurées et régulièrement actualisées.</span><span data-en>Direct, structured and regularly updated information.</span></p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="checklist-section" id="newsletter">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow"><span data-fr>Checklist gratuite</span><span data-en>Free checklist</span></p>
+          <h2><span data-fr>Préparez votre voyage en Asie sans rien oublier</span><span data-en>Prepare your trip to Asia without forgetting anything</span></h2>
+          <p><span data-fr>Documents, budget, transport, connexion mobile, assurance et applications utiles.</span><span data-en>Documents, budget, transport, mobile data, insurance and useful apps.</span></p>
+        </div>
+
+        <div class="checklist-box">
+          <div class="checklist-visual" aria-label="Aperçu de la checklist voyage Asie">
+            <div class="checklist-title"><span data-fr>CHECKLIST VOYAGE ASIE</span><span data-en>ASIA TRAVEL CHECKLIST</span></div>
+            <ul class="checklist-list">
+              <li><span data-fr>Passeport et formalités</span><span data-en>Passport and entry requirements</span></li>
+              <li><span data-fr>Budget et moyens de paiement</span><span data-en>Budget and payment methods</span></li>
+              <li><span data-fr>Transports et hébergements</span><span data-en>Transport and accommodation</span></li>
+              <li><span data-fr>eSIM et applications utiles</span><span data-en>eSIM and useful apps</span></li>
+            </ul>
+          </div>
+
+          <div class="checklist-copy">
+            <p class="eyebrow"><span data-fr>Votre guide pratique</span><span data-en>Your practical guide</span></p>
+            <h2><span data-fr>Recevez gratuitement la checklist</span><span data-en>Get the checklist for free</span></h2>
+            <p><span data-fr>Un guide pratique envoyé dans votre boîte mail pour préparer votre prochain départ.</span><span data-en>A practical guide delivered by email to help you prepare for your next departure.</span></p>
+
+            <form class="signup-form" id="signupForm">
+              <label for="email" class="sr-only" style="position:absolute;left:-9999px;"><span data-fr>Votre adresse e-mail</span><span data-en>Your email address</span></label>
+              <input id="email" name="email" type="email" required autocomplete="email" placeholder="Votre adresse e-mail">
+              <button class="btn" type="submit"><span data-fr>Recevoir gratuitement</span><span data-en>Get it for free</span></button>
+            </form>
+            <p class="form-note"><span data-fr>Aucun message indésirable. Désinscription en un clic.</span><span data-en>No unwanted messages. Unsubscribe in one click.</span></p>
+            <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
+          </div>
         </div>
       </div>
     </section>
   </main>
- 
-  <footer>
-    <div class="container">© 2026 Explore Asia Now · Guides de voyage indépendants</div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#accueil" class="brand">Explore Asia <span>Now</span></a>
+          <p><span data-fr>Guides et itinéraires pour découvrir l’Asie autrement.</span><span data-en>Guides and itineraries to experience Asia differently.</span></p>
+        </div>
+        <div class="footer-column"><h3><span data-fr>Destinations</span><span data-en>Destinations</span></h3><a href="#">Japon</a><a href="#">Thaïlande</a><a href="#">Corée du Sud</a><a href="#">Chine</a><a href="#">Inde</a></div>
+        <div class="footer-column"><h3><span data-fr>Explorer</span><span data-en>Explore</span></h3><a href="#destinations"><span data-fr>Guides</span><span data-en>Guides</span></a><a href="#itineraires"><span data-fr>Itinéraires</span><span data-en>Itineraries</span></a><a href="#outils"><span data-fr>Notre approche</span><span data-en>Our approach</span></a><a href="#newsletter">Newsletter</a></div>
+        <div class="footer-column"><h3><span data-fr>Informations</span><span data-en>Information</span></h3><a href="#"><span data-fr>À propos</span><span data-en>About</span></a><a href="#">Contact</a><a href="#"><span data-fr>Mentions légales</span><span data-en>Legal notice</span></a><a href="#"><span data-fr>Confidentialité</span><span data-en>Privacy</span></a></div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Explore Asia Now</span><button class="language-switch" id="footerLanguageSwitch" type="button">🌐 <span id="footerLanguageLabel">FR</span> ▾</button></div>
+    </div>
   </footer>
+
+  <script>
+    const body = document.body;
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    const languageSwitch = document.getElementById('languageSwitch');
+    const footerLanguageSwitch = document.getElementById('footerLanguageSwitch');
+    const languageLabel = document.getElementById('languageLabel');
+    const footerLanguageLabel = document.getElementById('footerLanguageLabel');
+    const emailInput = document.getElementById('email');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('open');
+      body.classList.toggle('menu-open', isOpen);
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.textContent = isOpen ? '✕' : '☰';
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        body.classList.remove('menu-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.textContent = '☰';
+      });
+    });
+
+    function toggleLanguage() {
+      const english = body.classList.toggle('lang-en');
+      document.documentElement.lang = english ? 'en' : 'fr';
+      languageLabel.textContent = english ? 'EN' : 'FR';
+      footerLanguageLabel.textContent = english ? 'EN' : 'FR';
+      emailInput.placeholder = english ? 'Your email address' : 'Votre adresse e-mail';
+    }
+
+    languageSwitch.addEventListener('click', toggleLanguage);
+    footerLanguageSwitch.addEventListener('click', toggleLanguage);
+
+    document.getElementById('signupForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const english = body.classList.contains('lang-en');
+      const message = document.getElementById('formMessage');
+      message.textContent = english
+        ? 'Demo form: connect an email service before launch.'
+        : 'Formulaire de démonstration : connectez un service d’e-mailing avant le lancement.';
+    });
+  </script>
 </body>
 </html>
