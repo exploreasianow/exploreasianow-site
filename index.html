@@ -587,6 +587,32 @@
     @media (prefers-reduced-motion: reduce) {
       * { scroll-behavior: auto !important; transition: none !important; }
     }
+    /* CARROUSEL MOBILE */
+
+@media (max-width: 768px) {
+
+  .destinations-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 16px;
+    padding: 0 20px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .destinations-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .destination-card {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+  }
+
+}
+
   </style>
 </head>
 
