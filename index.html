@@ -284,6 +284,22 @@
       content: "";
     }
     .destination-card:hover img { transform: scale(1.045); }
+
+/* Carte Japon entièrement cliquable */
+.destination-card-japan {
+cursor: pointer;
+}
+ 
+.destination-card-japan:focus-visible {
+outline: 4px solid var(--coral);
+outline-offset: 4px;
+}
+ 
+.destination-card-japan .btn {
+position: relative;
+z-index: 2;
+}
+ 
     .destination-content { width: 100%; padding: 24px 20px; }
     .destination-content h3 {
       margin-bottom: 9px;
@@ -710,14 +726,49 @@
         </div>
 
         <div class="destination-grid">
-          <article class="destination-card">
-            <img src="images/japon.jpg" alt="Paysage du Japon" loading="lazy">
-            <div class="destination-content">
-              <h3><span data-fr>Japon</span><span data-en>Japan</span></h3>
-              <p><span data-fr>Tokyo • Kyoto • Osaka<br>Culture • Gastronomie • Trains</span><span data-en>Tokyo • Kyoto • Osaka<br>Culture • Food • Rail</span></p>
-              <a class="btn btn-small" href="#"><span data-fr>Voir le guide</span><span data-en>View guide</span></a>
+          <article
+            class="destination-card destination-card-japan"
+            role="link"
+            tabindex="0"
+            aria-label="Découvrir le guide du Japon"
+            onclick="window.location.href='japon.html'"
+            onkeydown="
+             if (event.key === 'Enter' || event.key === ' ') {
+                 event.preventDefault();
+                 window.location.href='japon.html';
+             }
+            "
+          >
+           images/japon.jpg
+ 
+           <div class="destination-content">
+            <h3>
+              <span data-fr>Japon</span>
+              <span data-en>Japan</span>
+            </h3>
+ 
+            <p>
+            <span data-fr>
+            Tokyo • Kyoto • Osaka<br>
+            Culture • Gastronomie • Trains
+            </span>
+ 
+            <span data-en>
+            Tokyo • Kyoto • Osaka<br>
+            Culture • Food • Rail
+            </span>
+            </p>
+ 
+            <a
+             class="btn btn-small"
+             href="japon.html"
+            onclick="event.stopPropagation();"
+           >
+             <span data-fr>Voir le guide</span>
+             <span data-en>View guide</span>
+             </a>
             </div>
-          </article>
+           </article>
 
           <article class="destination-card">
             <img src="images/thailande.jpg" alt="Paysage de Thaïlande" loading="lazy">
